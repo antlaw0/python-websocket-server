@@ -2,7 +2,22 @@
 <head>
   <title>Simple client</title>
 
-  <script type="text/javascript">
+  
+</head>
+<body onload="init();">
+  <form onsubmit="onSubmit(); return false;">
+    <input type="text" id="input">
+    <input type="submit" value="Send">
+    <button onclick="onCloseClick(); return false;">close</button>
+  </form>
+  <canvas id="myCanvas" width="500" height="500"></canvas>
+
+  
+  <div id="log"></div>
+</body>
+
+
+<script type="text/javascript">
 
     var ws;
     
@@ -26,7 +41,7 @@
       };
 
       ws.onerror = function(e) {
-        output("onerror");
+        output("Error");
         console.log(e)
       };
 
@@ -51,15 +66,24 @@
         replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
       log.innerHTML = escaped + "<br>" + log.innerHTML;
     }
+//Credit for canvas image draw https://stackoverflow.com/questions/14012768/html5-canvas-background-image
+var canvas = document.getElementById("myCanvas"),
+ctx = canvas.getContext("2d");
 
+canvas.width = 512;
+canvas.height = 512;
+
+
+var background = new Image();
+background.src = "board.png";
+
+// Make sure the image is loaded first otherwise nothing will draw.
+background.onload = function(){
+    ctx.drawImage(background,0,0);   
+
+}
+// draw whatever else over top of it on the canvas.
+	
   </script>
-</head>
-<body onload="init();">
-  <form onsubmit="onSubmit(); return false;">
-    <input type="text" id="input">
-    <input type="submit" value="Send">
-    <button onclick="onCloseClick(); return false;">close</button>
-  </form>
-  <div id="log"></div>
-</body>
+
 </html>
