@@ -11,6 +11,7 @@
     <button onclick="onCloseClick(); return false;">close</button>
   </form>
   <canvas id="myCanvas" width="500" height="500"></canvas>
+canvas.addEventListener('click', selectPiece);
 
   
   <div id="log"></div>
@@ -66,24 +67,193 @@
         replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
       log.innerHTML = escaped + "<br>" + log.innerHTML;
     }
-//Credit for canvas image draw https://stackoverflow.com/questions/14012768/html5-canvas-background-image
+var selectedPiece=null;
+
+	//Credit for canvas image draw https://stackoverflow.com/questions/14012768/html5-canvas-background-image
 var canvas = document.getElementById("myCanvas"),
 ctx = canvas.getContext("2d");
 
-canvas.width = 512;
-canvas.height = 512;
+canvasWidth=512
+canvasHeight=512
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
+
+squareSize=canvasWidth/8
+y=0
 
 
-var background = new Image();
-background.src = "board.png";
 
-// Make sure the image is loaded first otherwise nothing will draw.
-background.onload = function(){
-    ctx.drawImage(background,0,0);   
-
+for (x=0; x<=7; x+=1)
+{
+	if (x%2 == 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
 }
-// draw whatever else over top of it on the canvas.
+y+=1
+for (x=0; x<=8; x+=1)
+{
+	if (x%2 != 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
+}
+y+=1
+for (x=0; x<=8; x+=1)
+{
+	if (x%2 == 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
+}
+y+=1
+for (x=0; x<=8; x+=1)
+{
+	if (x%2 != 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
+}
+y+=1
+for (x=0; x<=8; x+=1)
+{
+	if (x%2 == 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
+}
+y+=1
+for (x=0; x<=8; x+=1)
+{
+	if (x%2 != 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
+}
+y+=1
+for (x=0; x<=8; x+=1)
+{
+	if (x%2 == 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
+}
+y+=1
+for (x=0; x<=8; x+=1)
+{
+	if (x%2 != 0){
+	ctx.fillStyle="blue"}
+	else{
+	ctx.fillStyle="red"}
+	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
+}
+var wPieces=[]
+var bPieces=[]
+
+var Piece=function(n, x, y, color, type)
+{
+this.name=n;
+this.x=x;
+this.y=y;
+this.color=color
+this.type=type
+this.selected=false
+}
+
+var wKing = new Piece("White King", 64*4-32, 64/2, 'white',"K")
+wPieces.push(wKing)
+var wQueen=new Piece("White Queen", 64*5-32, 64/2, 'white',"Q")
+wPieces.push(wQueen)
+var bKing=new Piece("Black King", 64*4-32, canvasHeight-32, 'black', "K")
+bPieces.push(bKing)
+var bQueen=new Piece("Black Queen", 64*5-32, canvasHeight-32, 'black', "Q")
+bPieces.push(bQueen)
+redraw()
+
+function redraw(){
+for (i=0; i<wPieces.length; i++)
+{
+drawCircle(wPieces[i].x, wPieces[i].y, 30, 'white')
+ctx.font = "30px Comic Sans MS";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+ctx.fillText(wPieces[i].type, wPieces[i].x, wPieces[i].y);
+
+
+}//end of loop through white pieces
+for (i=0; i<bPieces.length; i++){
+drawCircle(bPieces[i].x, bPieces[i].y, 30, 'black')
+
+ctx.font = "30px Comic Sans MS";
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.fillText(bPieces[i].type, bPieces[i].x, bPieces[i].y);
+
+}//end of loop through black pieces
+
+//draw selection indicator around piece selected
+if (selectedPiece != null){
+ctx.fillStyle="yellow"
+	ctx.fillRect(selectedPiece.x-15, selectedPiece.y-15, selectedPiece.x+15, selectedPiece.y+15); 
 	
+}//end of redraw
+
+function drawCircle(x,y, radius,color)
+{
+
+
+ctx.beginPath();
+ctx.arc(x, y,radius,0,2*Math.PI);
+ctx.fillStyle=color;
+ctx.fill();
+
+
+}//end of drawCircle method
+
+
+function selectPiece(){
+found=false
+mx = event.offsetX;
+    my = event.offsetY;   //offsetX, offsetY, may not work in older browsers, especially Firefox
+
+	
+	for (i=0; i<wPieces.length; i++){
+p=wPieces[i]
+if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
+{
+p.selected=true
+found=true
+selectedPiece=p
+console.log(selectedPiece.name+" selected")
+break;
+
+}//end of if whithin click range
+}//end of loop through white pieces
+if (found == false){
+for (i=0; i<bPieces.length; i++){
+p=bPieces[i]
+if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
+{
+p.selected=true
+selectedPiece=p
+found=true
+selectedPiece=p
+console.log(p.name+" selected")
+break;
+
+}//end of if whithin click range
+}//end of loop through black  pieces
+}//end of if not found
+
+redraw()
+}	//end of click on canvas
   </script>
 
 </html>
