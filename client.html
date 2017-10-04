@@ -218,42 +218,47 @@ ctx.fill();
 }//end of drawCircle method
 
 
-function selectPiece(){
-found=false
-mx = event.offsetX;
-    my = event.offsetY;   //offsetX, offsetY, may not work in older browsers, especially Firefox
-
+function selectPiece()
+{
+	found=false
+	mx = event.offsetX;
+	my = event.offsetY;   //offsetX, offsetY, may not work in older browsers, especially Firefox
+	console.log(mx)
 	
-	for (i=0; i<wPieces.length; i++){
-p=wPieces[i]
-if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
-{
-p.selected=true
-found=true
-selectedPiece=p
-console.log(selectedPiece.name+" selected")
-break;
+	for (i=0; i<wPieces.length; i++)
+		{
+		p=wPieces[i]
+		if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
+		{
+			p.selected=true
+			found=true
+			selectedPiece=p
+			console.log(selectedPiece.name+" selected")
+			break;
 
-}//end of if whithin click range
-}//end of loop through white pieces
-if (found == false){
-for (i=0; i<bPieces.length; i++){
-p=bPieces[i]
-if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
-{
-p.selected=true
-selectedPiece=p
-found=true
-selectedPiece=p
-console.log(p.name+" selected")
-break;
+		}//end of if whithin click range	
+	}//end of loop through white pieces
+	if (found == false)
+	{
+		for (i=0; i<bPieces.length; i++)
+		{
+			p=bPieces[i]
+			if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
+			{
+				p.selected=true
+				selectedPiece=p
+				found=true
+				selectedPiece=p
+				console.log(p.name+" selected")
+				break;
 
-}//end of if whithin click range
-}//end of loop through black  pieces
-}//end of if not found
+			}//end of if whithin click range
+		}//end of loop through black  pieces
+	}//end of if not found
 
 redraw()
-}	//end of click on canvas
+}	//end of click on canvas function
+
   </script>
 
 </html>
