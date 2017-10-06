@@ -80,80 +80,19 @@ canvas.height = canvasHeight;
 
 squareSize=canvasWidth/8
 y=0
+var black=false
+for (var x = 0 ; x < 8 ; x++)  {
+  for (var y = 0 ; y < 8 ; y++) {
+    console.log(x, y, (x*squareSize), (y*squareSize),  black, ctx.fillStyle);
+    if (black) { ctx.fillStyle = "black"; }
+    else { ctx.fillStyle = "white"; }
+    ctx.fillRect(x*squareSize, y*squareSize, squareSize, squareSize);
+    black = !black;
+  }
+  black = !black
+}
 
 
-
-for (x=0; x<=7; x+=1)
-{
-	if (x%2 == 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
-y+=1
-for (x=0; x<=8; x+=1)
-{
-	if (x%2 != 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
-y+=1
-for (x=0; x<=8; x+=1)
-{
-	if (x%2 == 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
-y+=1
-for (x=0; x<=8; x+=1)
-{
-	if (x%2 != 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
-y+=1
-for (x=0; x<=8; x+=1)
-{
-	if (x%2 == 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
-y+=1
-for (x=0; x<=8; x+=1)
-{
-	if (x%2 != 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
-y+=1
-for (x=0; x<=8; x+=1)
-{
-	if (x%2 == 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
-y+=1
-for (x=0; x<=8; x+=1)
-{
-	if (x%2 != 0){
-	ctx.fillStyle="blue"}
-	else{
-	ctx.fillStyle="red"}
-	ctx.fillRect(x*squareSize,y*squareSize,x*squareSize + squareSize, y*squareSize + squareSize); 
-}
 var wPieces=[]
 var bPieces=[]
 
