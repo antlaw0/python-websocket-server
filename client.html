@@ -68,22 +68,18 @@ canvas.addEventListener('click', selectPiece);
       log.innerHTML = escaped + "<br>" + log.innerHTML;
     }
 var selectedPiece=null;
-
-	//Credit for canvas image draw https://stackoverflow.com/questions/14012768/html5-canvas-background-image
+//Credit for canvas image draw https://stackoverflow.com/questions/14012768/html5-canvas-background-image
 var canvas = document.getElementById("myCanvas"),
 ctx = canvas.getContext("2d");
-
 canvasWidth=512
 canvasHeight=512
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
-
 squareSize=canvasWidth/8
-y=0
 var black=false
 for (var x = 0 ; x < 8 ; x++)  {
   for (var y = 0 ; y < 8 ; y++) {
-    console.log(x, y, (x*squareSize), (y*squareSize),  black, ctx.fillStyle);
+    //console.log(x, y, (x*squareSize), (y*squareSize),  black, ctx.fillStyle);
     if (black) { ctx.fillStyle = "black"; }
     else { ctx.fillStyle = "white"; }
     ctx.fillRect(x*squareSize, y*squareSize, squareSize, squareSize);
@@ -141,7 +137,7 @@ ctx.fillText(bPieces[i].type, bPieces[i].x, bPieces[i].y);
 if (selectedPiece != null){
 ctx.fillStyle="yellow"
 	ctx.fillRect(selectedPiece.x-15, selectedPiece.y-15, selectedPiece.x+15, selectedPiece.y+15); 
-	
+	}//end of if selectedPiece not null
 }//end of redraw
 
 function drawCircle(x,y, radius,color)
@@ -162,7 +158,7 @@ function selectPiece()
 	found=false
 	mx = event.offsetX;
 	my = event.offsetY;   //offsetX, offsetY, may not work in older browsers, especially Firefox
-	console.log(mx)
+	console.log("mouse pos: "+mx+", "+my)
 	
 	for (i=0; i<wPieces.length; i++)
 		{
@@ -196,6 +192,7 @@ function selectPiece()
 	}//end of if not found
 
 redraw()
+
 }	//end of click on canvas function
 
   </script>
