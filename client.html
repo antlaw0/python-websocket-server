@@ -138,7 +138,9 @@ ctx.fillText(bPieces[i].type, bPieces[i].x, bPieces[i].y);
 //draw selection indicator around piece selected
 if (selectedPiece != null){
 ctx.fillStyle="yellow"
-	ctx.fillRect(selectedPiece.x-15, selectedPiece.y-15, selectedPiece.x+15, selectedPiece.y+15); 
+	ctx.globalAlpha = 0.5;
+	ctx.fillRect(selectedPiece.x-squareSize/2, selectedPiece.y-squareSize/2, squareSize, squareSize); 
+	ctx.globalAlpha = 1.0;
 }// end of if (selectedPiece !=null ){...
 	}//end of if selectedPiece not null
 //}//end of redraw
@@ -168,6 +170,9 @@ function selectPiece()
 		p=wPieces[i]
 		if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
 		{
+			if (selectedPiece != null){
+			selectedPiece.selected=false
+			}
 			p.selected=true
 			found=true
 			selectedPiece=p
