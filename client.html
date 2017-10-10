@@ -11,7 +11,6 @@
     <button onclick="onCloseClick(); return false;">close</button>
   </form>
   <canvas id="myCanvas" width="500" height="500"></canvas>
-canvas.addEventListener('click', selectPiece);
 
   
   <div id="log"></div>
@@ -75,6 +74,9 @@ canvasWidth=512
 canvasHeight=512
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
+	
+	canvas.addEventListener('click', selectPiece);  // but it will work here
+
 squareSize=canvasWidth/8
 var black=false
 for (var x = 0 ; x < 8 ; x++)  {
