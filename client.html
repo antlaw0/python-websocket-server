@@ -79,6 +79,7 @@ canvas.height = canvasHeight;
 
 squareSize=canvasWidth/8
 var black=false
+function drawBoard(){
 for (var x = 0 ; x < 8 ; x++)  {
   for (var y = 0 ; y < 8 ; y++) {
     //console.log(x, y, (x*squareSize), (y*squareSize),  black, ctx.fillStyle);
@@ -89,7 +90,7 @@ for (var x = 0 ; x < 8 ; x++)  {
   }
   black = !black
 }
-
+}//end of drawBoard
 
 var wPieces=[]
 var bPieces=[]
@@ -115,6 +116,15 @@ bPieces.push(bQueen)
 redraw()
 
 function redraw(){
+//clear canvas for redrawing
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+//redraw board
+drawBoard()
+
+
+
+
 for (i=0; i<wPieces.length; i++)
 {
 drawCircle(wPieces[i].x, wPieces[i].y, 30, 'white')
@@ -203,6 +213,49 @@ redraw()
 
 }	//end of click on canvas function
 
+document.onkeydown = function() {
+    switch (window.event.keyCode) {
+        case 37:
+         movePiece('left')
+         break;
+        case 38:
+         movePiece('up')
+         break;
+        case 39:
+		movePiece('right')
+         break;
+        case 40:
+		movePiece('down')
+        break;
+    }
+};
+
+
+function movePiece(dir){
+if (selectedPiece != null){
+	if (dir == 'up'){
+		if (selectedPiece.y >= squareSize/2){
+			selectedPiece.y-= squareSize
+		}//end of check if within board
+	}//end of if up
+	if (dir == 'down'){
+		if (selectedPiece.y <= canvasHeight-squareSize/2){
+			selectedPiece.y+=squareSize
+		}//end of if within board height
+	}//end of if down
+	if (dir == 'right'){
+		if (selectedPiece.x<= canvasWidth-squareSize/2){
+			selectedPiece.x+=squareSize
+		}//end of not go outside board
+	}//end of if right
+	if (dir == 'left'){
+		if (selectedPiece.x >= squareSize/2){
+			selectedPiece.x-=squareSize
+		}//end of within board
+	}//end of if left
+}//end of if selectedPiece is not null
+redraw()
+}//end of movePiece method
   </script>
 
 </html>
