@@ -1,4 +1,5 @@
 from websocket_server import WebsocketServer
+import os
 
 # Called for every client connecting (after handshake)
 def new_client(client, server):
@@ -19,8 +20,7 @@ def message_received(client, server, message):
 	server.send_message_to_all(message)
 
 
-
-PORT=9001
+port = int(os.environ.get("PORT", 5000))
 server = WebsocketServer(PORT)
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
