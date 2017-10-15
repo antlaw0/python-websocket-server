@@ -109,10 +109,54 @@ var wKing = new Piece("White King", 64*4-32, 64/2, 'white',"K")
 wPieces.push(wKing)
 var wQueen=new Piece("White Queen", 64*5-32, 64/2, 'white',"Q")
 wPieces.push(wQueen)
+var wKnight1 = new Piece("White Knight", 64*3-32, squareSize/2, 'white', "K1")
+wPieces.push(wKnight1)
+var wKnight2 = new Piece('White Knight', 64*6-(squareSize/2), squareSize/2, 'white', "K2")
+wPieces.push(wKnight2)
+var wBishop1 = new Piece("White Bishop", 64*2-(squareSize/2), squareSize/2, 'white', "B1")
+wPieces.push(wBishop1)
+var wBishop2= new Piece("White Bishop", 64*7-(squareSize/2), squareSize/2, 'white', "B2")
+wPieces.push(wBishop2)
+var wRook1 = new Piece("White Rook", squareSize/2, squareSize/2, 'white', "R1")
+wPieces.push(wRook1)
+var wRook2 = new Piece("White Rook", squareSize*8-(squareSize/2), squareSize/2, 'white', "R2")
+wPieces.push(wRook2)
+
+//White pons
+for (var i=1; i<=8; i++)
+{
+	var wPon = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P"+i)
+	wPieces.push(wPon)
+}//end of for white pons
+
 var bKing=new Piece("Black King", 64*4-32, canvasHeight-32, 'black', "K")
 bPieces.push(bKing)
 var bQueen=new Piece("Black Queen", 64*5-32, canvasHeight-32, 'black', "Q")
 bPieces.push(bQueen)
+var bKnight1=new Piece("Black Knight", squareSize*3-(squareSize/2), canvasHeight-(squareSize/2), 'black', "K1")
+bPieces.push(bKnight1)
+var bKnight2=new Piece("Black Knight", squareSize*6-(squareSize/2), canvasHeight-(squareSize/2), 'black', "K2")
+bPieces.push(bKnight2)
+var bBishop1=new Piece("Black Bishop", squareSize*2-(squareSize/2), canvasHeight-(squareSize/2), 'black', "B1")
+bPieces.push(bBishop1)
+var bBishop2=new Piece("Black Bishop", squareSize*7-(squareSize/2), canvasHeight-(squareSize/2), 'black', "B2")
+bPieces.push(bBishop2)
+var bRook1=new Piece("Black Rook", squareSize*1-(squareSize/2), canvasHeight-(squareSize/2), 'black', "R1")
+bPieces.push(bRook1)
+var bRook2=new Piece("Black Rook", squareSize*8-(squareSize/2), canvasHeight-(squareSize/2), 'black', "R2")
+bPieces.push(bRook2)
+
+
+
+
+
+//Black pons
+for (var i=1; i<=8; i++)
+{
+	var bPon = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'white', "P"+i)
+	bPieces.push(bPon)
+}//end of for black pons
+
 redraw()
 
 function redraw(){
