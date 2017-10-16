@@ -83,11 +83,10 @@
 
 	//variable set up
 	var selectedPiece=null;
-//Credit for canvas image draw https://stackoverflow.com/questions/14012768/html5-canvas-background-image
 var canvas = document.getElementById("myCanvas"),
 ctx = canvas.getContext("2d");
 canvasWidth=512
-canvasHeight=512
+canvasHeight=512+(64*4) //two extra rows top and bottom to keep captured pieces
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 	
@@ -104,11 +103,20 @@ for (var x = 0 ; x < 8 ; x++)  {
     //console.log(x, y, (x*squareSize), (y*squareSize),  black, ctx.fillStyle);
     if (black) { ctx.fillStyle = "black"; }
     else { ctx.fillStyle = "white"; }
-    ctx.fillRect(x*squareSize, y*squareSize, squareSize, squareSize);
+    ctx.fillRect(x*squareSize, y*squareSize+(squareSize*2), squareSize, squareSize);
     black = !black;
   }
   black = !black
 }
+
+//draw white capture area
+ctx.fillStyle="red"
+ctx.fillRect(0,0, 8*squareSize, 2*squareSize)
+
+//draw black capture area
+ctx.fillStyle="blue"
+ctx.fillRect(0, canvasHeight-(squareSize*2), canvasWidth, canvasHeight)
+
 }//end of drawBoard
 
 var wPieces=[] //array to hold all white pieces
@@ -126,88 +134,88 @@ this.selected=false //whether or not this piece is currently selected
 }
 
 //init all white pieces (16 total
-var wKing = new Piece("White King", 64*4-32, 64/2, 'white',"K")
+var wKing = new Piece("White King", squareSize*4-squareSize/2, squareSize*2+(squareSize/2), 'white',"K")
 wPieces.push(wKing)
-var wQueen=new Piece("White Queen", 64*5-32, 64/2, 'white',"Q")
+var wQueen=new Piece("White Queen", squareSize*5-squareSize/2, squareSize*2+squareSize/2, 'white',"Q")
 wPieces.push(wQueen)
-var wKnight1 = new Piece("White Knight", 64*3-32, squareSize/2, 'white', "K1")
+var wKnight1 = new Piece("White Knight", squareSize*3-(squareSize/2), squareSize*2+squareSize/2, 'white', "K1")
 wPieces.push(wKnight1)
-var wKnight2 = new Piece('White Knight', 64*6-(squareSize/2), squareSize/2, 'white', "K2")
+var wKnight2 = new Piece('White Knight', squareSize*6-(squareSize/2), squareSize*2+squareSize/2, 'white', "K2")
 wPieces.push(wKnight2)
-var wBishop1 = new Piece("White Bishop", 64*2-(squareSize/2), squareSize/2, 'white', "B1")
+var wBishop1 = new Piece("White Bishop", squareSize*2-(squareSize/2), squareSize*2+squareSize/2, 'white', "B1")
 wPieces.push(wBishop1)
-var wBishop2= new Piece("White Bishop", 64*7-(squareSize/2), squareSize/2, 'white', "B2")
+var wBishop2= new Piece("White Bishop", squareSize*7-(squareSize/2), squareSize*2+squareSize/2, 'white', "B2")
 wPieces.push(wBishop2)
-var wRook1 = new Piece("White Rook", squareSize/2, squareSize/2, 'white', "R1")
+var wRook1 = new Piece("White Rook", squareSize/2, squareSize*2+squareSize/2, 'white', "R1")
 wPieces.push(wRook1)
-var wRook2 = new Piece("White Rook", squareSize*8-(squareSize/2), squareSize/2, 'white', "R2")
+var wRook2 = new Piece("White Rook", squareSize*8-(squareSize/2), squareSize*2+squareSize/2, 'white', "R2")
 wPieces.push(wRook2)
 	var i=1
-	var wPon1 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P1")
+	var wPon1 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P1")
 	wPieces.push(wPon1)
 i+=1
-	var wPon2 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P2")
+	var wPon2 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P2")
 	wPieces.push(wPon2)
 i+=1
-	var wPon3 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P3")
+	var wPon3 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P3")
 	wPieces.push(wPon3)
 i+=1
-	var wPon4 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P4")
+	var wPon4 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P4")
 	wPieces.push(wPon4)
 	i+=1
-	var wPon5 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P5")
+	var wPon5 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P5")
 	wPieces.push(wPon5)
 	i+=1
-	var wPon6 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P6")
+	var wPon6 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P6")
 	wPieces.push(wPon6)
 	i+=1
-	var wPon7 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P7")
+	var wPon7 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P7")
 	wPieces.push(wPon7)
 i+=1
-	var wPon8 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P8")
+	var wPon8 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize*2+squareSize+squareSize/2, 'white', "P8")
 	wPieces.push(wPon8)
 
 
 	//init all black pieces
-var bKing=new Piece("Black King", 64*4-32, canvasHeight-32, 'black', "K")
+var bKing=new Piece("Black King", squareSize*4-squareSize/2, canvasHeight-squareSize/2-squareSize*2, 'black', "K")
 bPieces.push(bKing)
-var bQueen=new Piece("Black Queen", 64*5-32, canvasHeight-32, 'black', "Q")
+var bQueen=new Piece("Black Queen", squareSize*5-squareSize/2, canvasHeight-squareSize/2-squareSize*2, 'black', "Q")
 bPieces.push(bQueen)
-var bKnight1=new Piece("Black Knight", squareSize*3-(squareSize/2), canvasHeight-(squareSize/2), 'black', "K1")
+var bKnight1=new Piece("Black Knight", squareSize*3-(squareSize/2), canvasHeight-(squareSize/2)-squareSize*2, 'black', "K1")
 bPieces.push(bKnight1)
-var bKnight2=new Piece("Black Knight", squareSize*6-(squareSize/2), canvasHeight-(squareSize/2), 'black', "K2")
+var bKnight2=new Piece("Black Knight", squareSize*6-(squareSize/2), canvasHeight-(squareSize/2)-squareSize*2, 'black', "K2")
 bPieces.push(bKnight2)
-var bBishop1=new Piece("Black Bishop", squareSize*2-(squareSize/2), canvasHeight-(squareSize/2), 'black', "B1")
+var bBishop1=new Piece("Black Bishop", squareSize*2-(squareSize/2), canvasHeight-(squareSize/2)-squareSize*2, 'black', "B1")
 bPieces.push(bBishop1)
-var bBishop2=new Piece("Black Bishop", squareSize*7-(squareSize/2), canvasHeight-(squareSize/2), 'black', "B2")
+var bBishop2=new Piece("Black Bishop", squareSize*7-(squareSize/2), canvasHeight-(squareSize/2)-squareSize*2, 'black', "B2")
 bPieces.push(bBishop2)
-var bRook1=new Piece("Black Rook", squareSize*1-(squareSize/2), canvasHeight-(squareSize/2), 'black', "R1")
+var bRook1=new Piece("Black Rook", squareSize*1-(squareSize/2), canvasHeight-(squareSize/2)-squareSize*2, 'black', "R1")
 bPieces.push(bRook1)
-var bRook2=new Piece("Black Rook", squareSize*8-(squareSize/2), canvasHeight-(squareSize/2), 'black', "R2")
+var bRook2=new Piece("Black Rook", squareSize*8-(squareSize/2), canvasHeight-(squareSize/2)-squareSize*2, 'black', "R2")
 bPieces.push(bRook2)
 i=1
-var bPon1 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P1")
+var bPon1 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P1")
 	bPieces.push(bPon1)
 i+=1
-	var bPon2 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P2")
+	var bPon2 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P2")
 	bPieces.push(bPon2)
 i+=1
-	var bPon3 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P3")
+	var bPon3 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P3")
 	bPieces.push(bPon3)
 i+=1
-	var bPon4 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P4")
+	var bPon4 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P4")
 	bPieces.push(bPon4)
 i+=1
-	var bPon5 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P5")
+	var bPon5 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P5")
 	bPieces.push(bPon5)
 i+=1
-	var bPon6 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P6")
+	var bPon6 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P6")
 	bPieces.push(bPon6)
 i+=1
-	var bPon7 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P7")
+	var bPon7 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P7")
 	bPieces.push(bPon7)
 i+=1
-	var bPon8 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P8")
+	var bPon8 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2)-squareSize*2, 'black', "P8")
 	bPieces.push(bPon8)
 
 
