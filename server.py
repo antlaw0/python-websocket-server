@@ -20,7 +20,7 @@ def message_received(client, server, message):
 	server.send_message_to_all(message)
 
 
-port = int(os.environ.get("PORT", 5000))
+PORT = int(os.environ.get("PORT", 5000))
 server = WebsocketServer(PORT)
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)

@@ -24,7 +24,7 @@
     function init() {
 
       // Connect to Web Socket
-      ws = new WebSocket("ws://localhost:9001/");
+      ws = new WebSocket("ws://localhost:5000/");
 
       // Set event handlers.
       ws.onopen = function() {
@@ -33,7 +33,8 @@
       
       ws.onmessage = function(e) {
         // e.data contains received string.
-        output("" + e.data);
+		processMovePiece(e.data)
+	  output("" + e.data);
       };
       
       ws.onclose = function() {
@@ -51,7 +52,8 @@
       var input = document.getElementById("input");
       // You can send message to the Web Socket using ws.send.
       ws.send(input.value);
-      output("send: " + input.value);
+      
+	  output("send: " + input.value);
       input.value = "";
       input.focus();
     }
@@ -61,7 +63,8 @@
     }
     
     function output(str) {
-      var log = document.getElementById("log");
+      console.log("output: "+str)
+	  var log = document.getElementById("log");
       var escaped = str.replace(/&/, "&amp;").replace(/</, "&lt;").
         replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
       log.innerHTML = escaped + "<br>" + log.innerHTML;
@@ -280,6 +283,7 @@ if (selectedPiece != null){
 	if (dir == 'up'){
 		if (selectedPiece.y >= squareSize/2){
 			selectedPiece.y-= squareSize
+			
 		}//end of check if within board
 	}//end of if up
 	if (dir == 'down'){
@@ -298,8 +302,42 @@ if (selectedPiece != null){
 		}//end of within board
 	}//end of if left
 }//end of if selectedPiece is not null
+
+ws.send("movePiece "+selectedPiece.type+" "+selectedPiece.x+" "+selectedPiece.y)
 redraw()
 }//end of movePiece method
+  
+function getPieceByType(string){
+	for (var i=0; i<=wPieces.length; i++){
+		if (wPieces[i].type == string){
+			return wPieces[i]
+			break
+		}
+	}//end of loop through white pieces
+	
+	for (var i=0; i<=bPieces.length; i++){
+		if (bPieces[i].type == string){
+			return bPieces[i]
+			break
+		}
+	
+	
+	}//end of loop through black  pieces
+
+}//end of function getPieceByType
+  
+function processMovePiece(string){
+	var stringArray = string.split(" ")
+	if (stringArray[0] == "movePiece"){
+		p=getPieceByType(stringArray[1])
+		//console.log(p.name+" moved.")
+		p.x = parseInt(stringArray[2])
+		p.y=parseInt(stringArray[3])
+		redraw()
+	}//end of if stringArray[0] == movePiece
+  
+}//end of processMovePiece
+  
   </script>
 
 </html>
