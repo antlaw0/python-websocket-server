@@ -18,7 +18,7 @@
 
 
 <script type="text/javascript">
-
+//web socket set up
     var ws;
     
     function init() {
@@ -69,7 +69,9 @@
         replace(/>/, "&gt;").replace(/"/, "&quot;"); // "
       log.innerHTML = escaped + "<br>" + log.innerHTML;
     }
-var selectedPiece=null;
+
+	//variable set up
+	var selectedPiece=null;
 //Credit for canvas image draw https://stackoverflow.com/questions/14012768/html5-canvas-background-image
 var canvas = document.getElementById("myCanvas"),
 ctx = canvas.getContext("2d");
@@ -78,10 +80,13 @@ canvasHeight=512
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 	
-	canvas.addEventListener('click', selectPiece);  // but it will work here
+	//add click event listener to canvas
+	canvas.addEventListener('click', selectPiece);  
 
 squareSize=canvasWidth/8
 var black=false
+
+// function to draw 8x8 gameboard of 64 pixle squares
 function drawBoard(){
 for (var x = 0 ; x < 8 ; x++)  {
   for (var y = 0 ; y < 8 ; y++) {
@@ -95,19 +100,21 @@ for (var x = 0 ; x < 8 ; x++)  {
 }
 }//end of drawBoard
 
-var wPieces=[]
-var bPieces=[]
+var wPieces=[] //array to hold all white pieces
+var bPieces=[] //array to hold all black pieces
 
+//new Piece object
 var Piece=function(n, x, y, color, type)
 {
 this.name=n;
-this.x=x;
-this.y=y;
-this.color=color
-this.type=type
-this.selected=false
+this.x=x; //x position on canvas
+this.y=y; //y position on canvas
+this.color=color //'white' or 'black'
+this.type=type //this is a unique letter and number designation
+this.selected=false //whether or not this piece is currently selected
 }
 
+//init all white pieces (16 total
 var wKing = new Piece("White King", 64*4-32, 64/2, 'white',"K")
 wPieces.push(wKing)
 var wQueen=new Piece("White Queen", 64*5-32, 64/2, 'white',"Q")
@@ -124,14 +131,33 @@ var wRook1 = new Piece("White Rook", squareSize/2, squareSize/2, 'white', "R1")
 wPieces.push(wRook1)
 var wRook2 = new Piece("White Rook", squareSize*8-(squareSize/2), squareSize/2, 'white', "R2")
 wPieces.push(wRook2)
+	var i=1
+	var wPon1 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P1")
+	wPieces.push(wPon1)
+i+=1
+	var wPon2 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P2")
+	wPieces.push(wPon2)
+i+=1
+	var wPon3 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P3")
+	wPieces.push(wPon3)
+i+=1
+	var wPon4 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P4")
+	wPieces.push(wPon4)
+	i+=1
+	var wPon5 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P5")
+	wPieces.push(wPon5)
+	i+=1
+	var wPon6 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P6")
+	wPieces.push(wPon6)
+	i+=1
+	var wPon7 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P7")
+	wPieces.push(wPon7)
+i+=1
+	var wPon8 = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P8")
+	wPieces.push(wPon8)
 
-//White pons
-for (var i=1; i<=8; i++)
-{
-	var wPon = new Piece("White Pon", squareSize*i-(squareSize/2), squareSize+squareSize/2, 'white', "P"+i)
-	wPieces.push(wPon)
-}//end of for white pons
 
+	//init all black pieces
 var bKing=new Piece("Black King", 64*4-32, canvasHeight-32, 'black', "K")
 bPieces.push(bKing)
 var bQueen=new Piece("Black Queen", 64*5-32, canvasHeight-32, 'black', "Q")
@@ -148,20 +174,43 @@ var bRook1=new Piece("Black Rook", squareSize*1-(squareSize/2), canvasHeight-(sq
 bPieces.push(bRook1)
 var bRook2=new Piece("Black Rook", squareSize*8-(squareSize/2), canvasHeight-(squareSize/2), 'black', "R2")
 bPieces.push(bRook2)
+i=1
+var bPon1 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P1")
+	bPieces.push(bPon1)
+i+=1
+	var bPon2 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P2")
+	bPieces.push(bPon2)
+i+=1
+	var bPon3 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P3")
+	bPieces.push(bPon3)
+i+=1
+	var bPon4 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P4")
+	bPieces.push(bPon4)
+i+=1
+	var bPon5 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P5")
+	bPieces.push(bPon5)
+i+=1
+	var bPon6 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P6")
+	bPieces.push(bPon6)
+i+=1
+	var bPon7 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P7")
+	bPieces.push(bPon7)
+i+=1
+	var bPon8 = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'black', "P8")
+	bPieces.push(bPon8)
 
 
 
 
 
-//Black pons
-for (var i=1; i<=8; i++)
-{
-	var bPon = new Piece("Black Pon", squareSize*i-(squareSize/2), canvasHeight-(squareSize+squareSize/2), 'white', "P"+i)
-	bPieces.push(bPon)
-}//end of for black pons
 
-redraw()
 
+
+	
+	redraw() //redraw now that all pieces are placed
+
+
+//this function redraws the canvas when a piece moves
 function redraw(){
 //clear canvas for redrawing
 ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -172,8 +221,10 @@ drawBoard()
 
 
 
+//draw all white pieces
 for (i=0; i<wPieces.length; i++)
 {
+//draw all circles for white pieces
 drawCircle(wPieces[i].x, wPieces[i].y, 30, 'white')
 ctx.font = "30px Comic Sans MS";
 ctx.fillStyle = "black";
@@ -182,7 +233,9 @@ ctx.fillText(wPieces[i].type, wPieces[i].x, wPieces[i].y);
 
 
 }//end of loop through white pieces
+//draw all black pieces
 for (i=0; i<bPieces.length; i++){
+//draw black piece circle
 drawCircle(bPieces[i].x, bPieces[i].y, 30, 'black')
 
 ctx.font = "30px Comic Sans MS";
@@ -202,6 +255,7 @@ ctx.fillStyle="yellow"
 	}//end of if selectedPiece not null
 //}//end of redraw
 
+//this function is for drawing circles for pieces
 function drawCircle(x,y, radius,color)
 {
 
@@ -214,17 +268,18 @@ ctx.fill();
 
 }//end of drawCircle method
 
-
+//this function is called when clicking within a game piece to select it
 function selectPiece()
 {
 	found=false
 	mx = event.offsetX;
 	my = event.offsetY;   //offsetX, offsetY, may not work in older browsers, especially Firefox
-	console.log("mouse pos: "+mx+", "+my)
-	
+	//console.log("mouse pos: "+mx+", "+my)
+	//loop through white pieces to see if found the piece that was clicked on to select it
 	for (i=0; i<wPieces.length; i++)
 		{
 		p=wPieces[i]
+		//if click position was within this piece
 		if (mx < p.x+15 && mx > p.x-15 && my > p.y-15 && my < p.y+15)
 		{
 			if (selectedPiece != null){
@@ -240,6 +295,9 @@ function selectPiece()
 	}//end of loop through white pieces
 	if (found == false)
 	{
+		//white piece was not clicked on so go on to see if it was a black piece
+		//loop through black  pieces to see if found the piece that was clicked on to select it
+	
 		for (i=0; i<bPieces.length; i++)
 		{
 			p=bPieces[i]
@@ -260,6 +318,7 @@ redraw()
 
 }	//end of click on canvas function
 
+//this function is to detect if arrow keys were pressed to move selected piece
 document.onkeydown = function() {
     switch (window.event.keyCode) {
         case 37:
@@ -278,8 +337,9 @@ document.onkeydown = function() {
 };
 
 
+//this function is called above and moves the selected piece in the given direction
 function movePiece(dir){
-if (selectedPiece != null){
+if (selectedPiece != null){ // if no piece is selected
 	if (dir == 'up'){
 		if (selectedPiece.y >= squareSize/2){
 			selectedPiece.y-= squareSize
@@ -302,37 +362,46 @@ if (selectedPiece != null){
 		}//end of within board
 	}//end of if left
 }//end of if selectedPiece is not null
-
-ws.send("movePiece "+selectedPiece.type+" "+selectedPiece.x+" "+selectedPiece.y)
-redraw()
+//send the new x and y of selected piece to all clients connected
+ws.send("movePiece "+selectedPiece.color+" "+selectedPiece.type+" "+selectedPiece.x+" "+selectedPiece.y)
+redraw() //have to redraw now that board changed
 }//end of movePiece method
   
-function getPieceByType(string){
-	for (var i=0; i<=wPieces.length; i++){
-		if (wPieces[i].type == string){
+  //this function takes two strings, the type and color and returns the Piece object matching the color and type with that type
+function getPieceByType(color, type){
+color=color
+type=type
+found=false
+	for (var i=0; i<wPieces.length; i++){
+		console.log("loop: "+wPieces[i].name+" "+wPieces[i].color+" "+wPieces[i].type)
+		if (wPieces[i].type == type && wPieces[i].color == color){
+			found=true
 			return wPieces[i]
 			break
 		}
 	}//end of loop through white pieces
-	
-	for (var i=0; i<=bPieces.length; i++){
-		if (bPieces[i].type == string){
+	if (found == false){
+	for (var i=0; i<bPieces.length; i++){
+		console.log("loop: "+bPieces[i].name+" "+bPieces[i].color+" "+bPieces[i].type)
+		
+		if (bPieces[i].type == type && bPieces[i].color == color){
 			return bPieces[i]
 			break
 		}
 	
-	
 	}//end of loop through black  pieces
-
+}//end of if not found
+	
 }//end of function getPieceByType
   
+  //This function works client-side to move the piece another client moved
 function processMovePiece(string){
 	var stringArray = string.split(" ")
 	if (stringArray[0] == "movePiece"){
-		p=getPieceByType(stringArray[1])
-		//console.log(p.name+" moved.")
-		p.x = parseInt(stringArray[2])
-		p.y=parseInt(stringArray[3])
+		p=getPieceByType(stringArray[1], stringArray[2])
+		console.log(p.name+" moved.")
+		p.x = parseInt(stringArray[3])
+		p.y=parseInt(stringArray[4])
 		redraw()
 	}//end of if stringArray[0] == movePiece
   

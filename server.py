@@ -19,10 +19,11 @@ def message_received(client, server, message):
 	print("Client(%d) said: %s" % (client['id'], message))
 	server.send_message_to_all(message)
 
-
+print("Server running")
 PORT = int(os.environ.get("PORT", 5000))
 server = WebsocketServer(PORT)
 server.set_fn_new_client(new_client)
 server.set_fn_client_left(client_left)
 server.set_fn_message_received(message_received)
 server.run_forever()
+print("server closed")
