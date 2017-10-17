@@ -134,9 +134,9 @@ this.selected=false //whether or not this piece is currently selected
 this.captured=false
 this.captureX = x
 if (color == 'black'){
-this.captureY = y-canvasHeight
+this.captureY = y-canvasHeight+(squareSize*4)
 }else{
-this.captureY = y+canvasHeight
+this.captureY = y+canvasHeight-(squareSize*4)
 }//end of if color is not white
 }
 
