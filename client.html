@@ -438,7 +438,7 @@ function processMovePiece(string){
   
   //this function checks if two pieces are at the same position
 function collision(){
-	if (selectedPiece.color='black'){
+	if (selectedPiece.color == 'black'){
 		for (var i =0; i<wPieces.length; i++){
 			if (wPieces[i].x == selectedPiece.x && wPieces[i].y == selectedPiece.y && selectedPiece != wPieces[i]){
 				console.log(selectedPiece.name+" captured "+wPieces[i].name)
