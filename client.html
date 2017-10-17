@@ -131,6 +131,13 @@ this.y=y; //y position on canvas
 this.color=color //'white' or 'black'
 this.type=type //this is a unique letter and number designation
 this.selected=false //whether or not this piece is currently selected
+this.captured=false
+this.captureX = x
+if (color == 'black'){
+this.captureY = y-canvasHeight
+}else{
+this.captureY = y+canvasHeight
+}//end of if color is not white
 }
 
 //init all white pieces (16 total
@@ -307,7 +314,7 @@ function selectPiece()
 			p.selected=true
 			found=true
 			selectedPiece=p
-			console.log(selectedPiece.name+" selected")
+			console.log(selectedPiece.name+" selected"+selectedPiece.color)
 			break;
 
 		}//end of if whithin click range	
@@ -383,6 +390,7 @@ if (selectedPiece != null){ // if no piece is selected
 }//end of if selectedPiece is not null
 //send the new x and y of selected piece to all clients connected
 ws.send("movePiece "+selectedPiece.color+" "+selectedPiece.type+" "+selectedPiece.x+" "+selectedPiece.y)
+collision()
 redraw() //have to redraw now that board changed
 }//end of movePiece method
   
@@ -425,6 +433,44 @@ function processMovePiece(string){
 	}//end of if stringArray[0] == movePiece
   
 }//end of processMovePiece
+  
+  
+  
+  //this function checks if two pieces are at the same position
+function collision(){
+	if (selectedPiece.color='black'){
+		for (var i =0; i<wPieces.length; i++){
+			if (wPieces[i].x == selectedPiece.x && wPieces[i].y == selectedPiece.y && selectedPiece != wPieces[i]){
+				console.log(selectedPiece.name+" captured "+wPieces[i].name)
+				wPieces[i].x=wPieces[i].captureX
+				wPieces[i].y=wPieces[i].captureY
+				wPieces[i].captured=true
+				
+				break
+			}//end of if at same position as piece1
+			
+		}//end of for loop through white pieces
+		
+	}//end of if piece is black
+	
+	if (selectedPiece.color == 'white')
+	{
+		for (var i=0; i<bPieces.length; i++){
+			if (bPieces[i].x == selectedPiece.x && bPieces[i].y == selectedPiece.y && selectedPiece != bPieces[i]){
+				bPieces[i].x=bPieces[i].captureX
+				bPieces[i].y=bPieces[i].captureY
+				bPieces[i].captured=true
+				console.log(selectedPiece.name+" captured "+bPieces[i].name)
+				break
+			}//end of if at same position
+			
+		}//end of loop through black pieces
+		
+	}//end of if selectedPiece white
+	
+}//end of collision function
+
+  
   
   </script>
 
