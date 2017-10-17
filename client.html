@@ -45,7 +45,13 @@
       ws.onmessage = function(e) {
         // e.data contains received string.
 		processMovePiece(e.data)
+	  var firstWord=e.data.split(' ')
+	  
+	  //console.log(firstWord[0])
+	  //don't want to print move commands
+	  if (firstWord[0] != 'movePiece'){
 	  output("" + e.data);
+	  }
       };
       
       ws.onclose = function() {
