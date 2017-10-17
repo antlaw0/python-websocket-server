@@ -46,10 +46,15 @@
         // e.data contains received string.
 		processMovePiece(e.data)
 	  var firstWord=e.data.split(' ')
-	  
+if (firstWord[0] == 'selectedPiece'){
+var p=getPieceByType(firstWord[1], firstWord[2])
+selectedPiece=p
+p.selected=true
+redraw()
+}	  
 	  //console.log(firstWord[0])
 	  //don't want to print move commands
-	  if (firstWord[0] != 'movePiece'){
+	  if (firstWord[0] != 'movePiece' || firstWord[0] == 'selectedPiece'){
 	  output("" + e.data);
 	  }
       };
@@ -320,6 +325,7 @@ function selectPiece()
 			p.selected=true
 			found=true
 			selectedPiece=p
+			ws.send('selectedPiece '+selectedPiece.color+' '+selectedPiece.type)
 			console.log(selectedPiece.name+" selected"+selectedPiece.color)
 			break;
 
