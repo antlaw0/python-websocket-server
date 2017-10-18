@@ -5,3 +5,6 @@ Notes: I am currently unable to deploy this application to heroku or Python Anyw
 
 #How to run:
 In a command prompt, navigate to the folder containing server.py and run the server using 'python server.py'. A message should appear stating that the server is running. You can then open up as many client.html windows as you want. Any message or piece movement will be sent to all connected clients. To stop the server, in the command prompt, press control+c and type 'exit'.
+
+#Known Issues
+Selected piece on other clients do not capture pieces like what happens on the client that is controlling the selected piece.
